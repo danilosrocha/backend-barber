@@ -49,7 +49,7 @@ class CreateHaircutService {
             const haircut = await prismaClient.haircut.create({
                 data: {
                     name: name,
-                    price: price,
+                    price: Number(price),
                     user_id: user_id
                 }
             })
