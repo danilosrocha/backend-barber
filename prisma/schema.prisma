@@ -14,8 +14,8 @@ model User {
   id                String        @id @default(uuid())
   name              String
   email             String
-  address            String?
   password          String
+  address           String?
   strip_customer_id String?
   // 
   created_at        DateTime?     @default(now())
@@ -26,6 +26,8 @@ model User {
   haircuts          Haircut[]
   // 
   services          Service[]
+  // 
+  barbers           Barber[]
 
   @@map("users")
 }
@@ -64,6 +66,8 @@ model Haircut {
 model Service {
   id         String    @id @default(uuid())
   customer   String
+  time       String
+  status     Boolean   @default(true)
   // 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
@@ -73,6 +77,26 @@ model Service {
   // 
   user       User      @relation(fields: [user_id], references: [id])
   user_id    String
+  // 
+  barber     Barber?   @relation(fields: [barber_id], references: [id])
+  barber_id  String?
 
   @@map("services")
+}
+
+model Barber {
+  id          String    @id @default(uuid())
+  barber_name String
+  hair_cuts   Int       @default(0)
+  status      Boolean   @default(true)
+  // 
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
+  // 
+  user        User?     @relation(fields: [user_id], references: [id])
+  user_id     String?
+  // 
+  services    Service[]
+
+  @@map("barbers")
 }
