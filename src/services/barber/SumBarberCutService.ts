@@ -9,7 +9,7 @@ interface BarberRequest {
 class SumBarberCutService {
     async execute({ user_id, hair_cuts, barber_id }: BarberRequest) {
 
-        if (!hair_cuts) {
+        if (!hair_cuts || !barber_id) {
             throw new Error("Erro update barber!")
         }
 

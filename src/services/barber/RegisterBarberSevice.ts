@@ -13,19 +13,6 @@ class RegisterBarberSevice {
         }
 
         try {
-            const barberAlreadyExists = await prismaClient.barber.findFirst({
-                where: {
-                    AND: {
-                        user_id,
-                        barber_name,
-                    }
-                }
-            })
-
-            if (barberAlreadyExists) {
-                throw new Error("Barber already register")
-            }
-
             const barber = await prismaClient.barber.create({
                 data: {
                     barber_name,

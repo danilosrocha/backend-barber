@@ -4,12 +4,11 @@ interface NewScheduleRequest {
     user_id: string
     haircut_id: string
     customer: string
-    time: string
     barber_id: string
 }
 
 class NewScheduleService {
-    async execute({ customer, haircut_id, time, user_id, barber_id }: NewScheduleRequest) {
+    async execute({ customer, haircut_id, user_id, barber_id }: NewScheduleRequest) {
         if (!customer || !haircut_id) {
             throw new Error("Error schedule new service")
         }
@@ -40,7 +39,6 @@ class NewScheduleService {
             const schedule = await prismaClient.service.create({
                 data: {
                     customer,
-                    time,
                     haircut_id,
                     user_id,
                     barber_id,

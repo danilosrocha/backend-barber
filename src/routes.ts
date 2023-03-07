@@ -26,6 +26,7 @@ import { DeleteBarberController } from "./controllers/barber/DeleteBarberControl
 import { UpdateBarberController } from "./controllers/barber/UpdateBarberController";
 import { SumBarberCutController } from "./controllers/barber/SumBarberCutController";
 import { GetBarberController } from "./controllers/barber/GetBarberController";
+import { CreateAvaliableTimesController } from "./controllers/barber/CreateAvaliableTimesController";
 
 const router = Router()
 
@@ -78,5 +79,7 @@ router.put('/barber', isAuthenticated, new UpdateBarberController().handle)
 router.put('/barber/count', isAuthenticated, new SumBarberCutController().handle)
 
 //  
+router.post('/barber/times', isAuthenticated, new CreateAvaliableTimesController().handle)
+
 
 export { router }

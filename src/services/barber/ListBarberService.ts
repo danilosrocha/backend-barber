@@ -18,21 +18,6 @@ class ListBarberService {
                 barber_name: true,
                 hair_cuts: true,
                 status: true,
-                services: {
-                    select: {
-                        id: true,
-                        customer: true,
-                        time: true,
-                        haircut: {
-                            select: {
-                                id: true,
-                                name: true,
-                                price: true,
-                            }
-                        }
-                    }
-                }
-
             }
         })
 
