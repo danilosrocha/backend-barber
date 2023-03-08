@@ -36,7 +36,18 @@ class SchedulesDaysService {
             return moment(date, "DD/MM").format("DD/MM")
         })
 
-        return uniqueDates.sort()
+        const sortedDates = uniqueDates.sort((date1, date2) => {
+            const moment1 = moment(date1, "DD/MM");
+            const moment2 = moment(date2, "DD/MM");
+
+            if (moment1.month() !== moment2.month()) {
+                return moment1.month() - moment2.month();
+            }
+
+            return moment1.date() - moment2.date();
+        });
+
+        return sortedDates;
     }
 }
 
