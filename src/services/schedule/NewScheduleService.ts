@@ -30,11 +30,13 @@ class NewScheduleService {
                 throw new Error("Barber not exists!")
             }
 
+            const newDate = moment(date, "DD/MM").format("DD/MM")
+            
             const scheduleExists = await prismaClient.service.findFirst({
                 where: {
                     AND: {
                         barber_id,
-                        date,
+                        date: newDate,
                         time,
                         status: true
                     }
@@ -53,7 +55,7 @@ class NewScheduleService {
                     hair_cuts: (barberExists.hair_cuts + 1)
                 }
             })
-            const newDate = moment(date, "DD/MM").format("DD/MM")
+
             const schedule = await prismaClient.service.create({
                 data: {
                     customer,
