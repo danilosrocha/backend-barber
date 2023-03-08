@@ -1,3 +1,4 @@
+import moment from "moment"
 import prismaClient from "../../prisma"
 
 interface NewScheduleRequest {
@@ -52,14 +53,14 @@ class NewScheduleService {
                     hair_cuts: (barberExists.hair_cuts + 1)
                 }
             })
-
+            const newDate = moment(date, "DD/MM").format("DD/MM")
             const schedule = await prismaClient.service.create({
                 data: {
                     customer,
                     haircut_id,
                     user_id,
                     barber_id,
-                    date,
+                    date: newDate,
                     time,
                 }
             })
