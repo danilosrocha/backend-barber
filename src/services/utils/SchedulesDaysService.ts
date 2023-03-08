@@ -1,4 +1,5 @@
 import prismaClient from "../../prisma"
+import moment from 'moment';
 
 interface CheckSubscription {
     user_id: string
@@ -23,7 +24,7 @@ class SchedulesDaysService {
             ]
         })
 
-        const uniqueDates = schedules.reduce((unique: any, current: any) => {
+        let uniqueDates = schedules.reduce((unique: any, current: any) => {
             const index = unique.findIndex((item: any) => item === current.date)
             if (index === -1) {
                 return [...unique, current.date]
@@ -31,7 +32,11 @@ class SchedulesDaysService {
             return unique
         }, [])
 
-        return uniqueDates
+        uniqueDates = uniqueDates.map((date) => {
+            return moment(date, "DD/MM").format("DD/MM")
+        })
+
+        return uniqueDates.sort()
     }
 }
 
