@@ -18,6 +18,7 @@ class ListBarberService {
                 barber_name: true,
                 hair_cuts: true,
                 status: true,
+                available_at: true
             }
         })
 

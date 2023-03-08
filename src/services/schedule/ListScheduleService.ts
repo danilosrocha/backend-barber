@@ -9,13 +9,34 @@ class ListScheduleService {
 
         const schedule = await prismaClient.service.findMany({
             where: {
-                user_id,
+                AND: {
+                    user_id,
+                    status: true
+                }
             },
             select: {
                 id: true,
+                status: true,
                 customer: true,
-                haircut: true
-            }
+                haircut: {
+                    select: {
+                        id: true,
+                        name: true,
+                        price: true,
+                    }
+                },
+                time: true,
+                date: true,
+                barber: {
+                    select: {
+                        barber_name: true,
+                    }
+                }
+            },
+            orderBy: [
+                { date: 'asc' },
+                { time: 'asc' }
+            ]
         })
 
         return schedule

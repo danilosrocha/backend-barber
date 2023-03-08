@@ -20,12 +20,7 @@ class GetBarberService {
                 barber_name: true,
                 hair_cuts: true,
                 status: true,
-                barber_availability: {
-                    select: {
-                        date: true,
-                        available_at: true
-                    }
-                },
+                available_at: true,
                 services: {
                     select: {
                         id: true,
