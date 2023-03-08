@@ -7,11 +7,6 @@ interface DeleteBarberRequest {
 
 class DeleteBarberService {
     async execute({ barber_id, user_id }: DeleteBarberRequest) {
-        console.log({
-            barber_id,
-            user_id
-        });
-
         if (!barber_id || !user_id) {
             throw new Error("Error barber finish service")
         }
@@ -19,15 +14,10 @@ class DeleteBarberService {
         try {
             const belongsToBarber = await prismaClient.barber.findFirst({
                 where: {
-                    AND: {
-                        id: barber_id,
-                        user_id: user_id
-                    }
+                    id: barber_id,
+                    user_id: user_id
                 }
             })
-
-            console.log(belongsToBarber);
-
 
             if (!belongsToBarber) {
                 throw new Error("Not authorized")

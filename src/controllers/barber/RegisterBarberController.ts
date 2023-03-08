@@ -6,11 +6,11 @@ class RegisterBarberController {
 
         const user_id = req.user_id
 
-        const { barber_name } = req.body
+        const { barber_name, available_at } = req.body
 
         const registerBarberSevice = new RegisterBarberSevice()
 
-        const barber = await registerBarberSevice.execute({ barber_name, user_id })
+        const barber = await registerBarberSevice.execute({ barber_name, available_at, user_id })
 
         return res.json(barber)
     }

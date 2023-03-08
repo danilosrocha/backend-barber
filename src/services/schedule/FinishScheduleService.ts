@@ -48,17 +48,26 @@ class FinishScheduleService {
                         hair_cuts: (barberExists.hair_cuts - 1)
                     }
                 })
+
+                await prismaClient.service.delete({
+                    where: {
+                        id: schedule_id
+                    }
+                })
+            } else {
+                await prismaClient.service.update({
+                    where: {
+                        id: schedule_id
+                    },
+                    data: {
+                        status: false
+                    }
+                })
             }
-
-            await prismaClient.service.delete({
-                where: {
-                    id: schedule_id
-                }
-            })
-
+            
             return { message: "Finalizado com sucesso" }
         } catch (error) {
-
+            console.log(error);
         }
 
     }

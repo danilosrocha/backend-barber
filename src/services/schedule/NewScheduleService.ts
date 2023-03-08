@@ -1,15 +1,17 @@
+import moment from "moment"
 import prismaClient from "../../prisma"
 
 interface NewScheduleRequest {
     user_id: string
     haircut_id: string
     customer: string
-    time: string
     barber_id: string
+    time: string
+    date: string
 }
 
 class NewScheduleService {
-    async execute({ customer, haircut_id, time, user_id, barber_id }: NewScheduleRequest) {
+    async execute({ customer, haircut_id, user_id, barber_id, time, date }: NewScheduleRequest) {
         if (!customer || !haircut_id) {
             throw new Error("Error schedule new service")
         }
@@ -25,7 +27,22 @@ class NewScheduleService {
             })
 
             if (!barberExists) {
-                throw new Error("Erro update barber!")
+                throw new Error("Barber not exists!")
+            }
+
+            const scheduleExists = await prismaClient.service.findFirst({
+                where: {
+                    AND: {
+                        barber_id,
+                        date,
+                        time,
+                        status: true
+                    }
+                }
+            })
+
+            if (scheduleExists) {
+                throw new Error("Schedule already exists!")
             }
 
             await prismaClient.barber.update({
@@ -36,21 +53,22 @@ class NewScheduleService {
                     hair_cuts: (barberExists.hair_cuts + 1)
                 }
             })
-
+            const newDate = moment(date, "DD/MM").format("DD/MM")
             const schedule = await prismaClient.service.create({
                 data: {
                     customer,
-                    time,
                     haircut_id,
                     user_id,
                     barber_id,
+                    date: newDate,
+                    time,
                 }
             })
 
             return schedule
 
         } catch (error) {
-            throw new Error("Error schedule new service")
+            throw new Error(error)
         }
     }
 }

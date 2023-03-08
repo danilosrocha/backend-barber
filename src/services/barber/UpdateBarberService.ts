@@ -24,7 +24,7 @@ class UpdateBarberService {
             })
 
             if (!barberExists) {
-                throw new Error("Erro update barber!")
+                throw new Error("Erro update barber! Nao localizado")
             }
 
             const barber = await prismaClient.barber.update({
