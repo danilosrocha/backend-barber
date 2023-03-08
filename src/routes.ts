@@ -16,6 +16,7 @@ import { DetailHaircutController } from "./controllers/haircut/DetailHaircutCont
 import { CheckSubscriptionController } from "./controllers/utils/CheckSubscriptionController";
 import { CountHaircutsController } from "./controllers/utils/CountHaircutsController";
 import { SchedulesDaysController } from "./controllers/utils/SchedulesDaysController";
+import { CheckTimeAvaliableController } from "./controllers/utils/CheckTimeAvaliableController";
 // Schedule
 import { NewScheduleController } from "./controllers/schedule/NewScheduleController";
 import { ListScheduleController } from "./controllers/schedule/ListScheduleController";
@@ -59,6 +60,8 @@ router.get('/check', isAuthenticated, new CheckSubscriptionController().handle)
 router.get('/haircuts/count', isAuthenticated, new CountHaircutsController().handle)
 
 router.get('/schedule/days', isAuthenticated, new SchedulesDaysController().handle)
+
+router.get('/barber/times', isAuthenticated, new CheckTimeAvaliableController().handle)
 
 // Routes - Schedule
 router.post('/schedule', isAuthenticated, new NewScheduleController().handle)
