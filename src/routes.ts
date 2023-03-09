@@ -33,8 +33,19 @@ import { CheckUserController } from "./controllers/utils/CheckUserController";
 const router = Router()
 
 router.get('/', (req: Request, res: Response) => {
+    type ConfigUserProps = "Bigode Grosso" | "Danilo";
 
-    return res.json({ ok: true })
+    let configUser: ConfigUserProps;
+
+    const envValue = process.env.USER_CONFIG;
+
+    if (!envValue) {
+        throw new Error("USER_CONFIG environment variable is not defined.");
+    }
+
+    configUser = envValue as ConfigUserProps;
+
+    return res.json(configUser)
 })
 
 // Routes - User
