@@ -12,7 +12,7 @@ interface NewScheduleRequest {
 
 class NewScheduleService {
     async execute({ customer, haircut_id, user_id, barber_id, time, date }: NewScheduleRequest) {
-        if (!customer || !haircut_id) {
+        if (!customer || !haircut_id || !user_id || !barber_id || !time || !date) {
             throw new Error("Error schedule new service")
         }
 
@@ -31,7 +31,7 @@ class NewScheduleService {
             }
 
             const newDate = moment(date, "DD/MM").format("DD/MM")
-            
+
             const scheduleExists = await prismaClient.service.findFirst({
                 where: {
                     AND: {

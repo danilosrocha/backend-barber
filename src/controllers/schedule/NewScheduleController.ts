@@ -4,7 +4,9 @@ import { NewScheduleService } from "../../services/schedule/NewScheduleService";
 class NewScheduleController {
     async handle(req: Request, res: Response) {
         const { haircut_id, customer, barber_id, time, date } = req.body
-        const user_id = req.user_id
+        const user_id = req.user_id ? req.user_id : req.body ? req.body.user_id : null;
+
+
 
         const newScheduleService = new NewScheduleService()
 

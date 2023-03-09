@@ -5,15 +5,20 @@ export interface CreateUserRequest {
     name: string,
     email: string
     password: string
+    code: string
     address?: string
     strip_customer_id?: string
 }
 
 class CreateUserService {
-    async execute({ email, name, password }: CreateUserRequest) {
+    async execute({ email, name, password, code }: CreateUserRequest) {
 
-        if (!email) {
+        if (!email || !name || !password) {
             throw new Error("Email incorrect!")
+        }
+
+        if (code !== `${(process.env.JWT_SECRET).slice(0, 6)}`) {
+            throw new Error("Code plataform incorrect!")
         }
 
         const userAlreadyExists = await prismaClient.user.findFirst({

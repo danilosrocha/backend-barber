@@ -28,6 +28,7 @@ import { DeleteBarberController } from "./controllers/barber/DeleteBarberControl
 import { UpdateBarberController } from "./controllers/barber/UpdateBarberController";
 import { SumBarberCutController } from "./controllers/barber/SumBarberCutController";
 import { GetBarberController } from "./controllers/barber/GetBarberController";
+import { CheckUserController } from "./controllers/utils/CheckUserController";
 
 const router = Router()
 
@@ -63,6 +64,8 @@ router.get('/schedule/days', isAuthenticated, new SchedulesDaysController().hand
 
 router.get('/barber/times', isAuthenticated, new CheckTimeAvaliableController().handle)
 
+router.get('/user/check', new CheckUserController().handle)
+
 // Routes - Schedule
 router.post('/schedule', isAuthenticated, new NewScheduleController().handle)
 
@@ -83,6 +86,17 @@ router.put('/barber', isAuthenticated, new UpdateBarberController().handle)
 
 router.put('/barber/count', isAuthenticated, new SumBarberCutController().handle)
 
+// Routes - FastRegister
+router.get('/haircuts/fast', new ListHaircutController().handle)
 
+router.get('/barbers/fast', new ListBarberController().handle)
+
+router.get('/barber/fast', new GetBarberController().handle)
+
+router.get('/barber/times/fast', new CheckTimeAvaliableController().handle)
+
+router.get('/schedule/days/fast', new SchedulesDaysController().handle)
+
+router.post('/schedule/fast', new NewScheduleController().handle)
 
 export { router }
