@@ -28,34 +28,32 @@ class CheckTimeAvaliableService {
                 services: {
                     select: {
                         date: true,
-                        time: true
+                        time: true,
+                        time_occuped: true
                     }
                 }
             }
         })
 
-        let uniqueDates = barber?.services.reduce((unique: any, current: any) => {
-            const index = unique.findIndex((item: any) => item.date === current.date)
-            if (index === -1) {
-                return [
-                    ...unique,
-                    {
+        let occupiedTimes = barber?.services.reduce((occupied: any, current: any) => {
+            current.time_occuped.forEach((time: string) => {
+                const index = occupied.findIndex((item: any) => item.date === current.date)
+                if (index === -1) {
+                    occupied.push({
                         date: current.date,
-                        times: [current.time]
-                    }
-                ]
-            }
-            unique[index].times.push(current.time)
-            return unique
+                        times: [time]
+                    })
+                } else {
+                    occupied[index].times.push(time)
+                }
+            })
+            return occupied
         }, [])
 
-        const findDate = uniqueDates.find((item: ItemProps) => {
-            return item.date === date
-        })
+        const services = barber?.services.filter((service: any) => service.date === date); // filtra os serviços com a data desejada
+        const times = services?.map((service: any) => service.time_occuped).flat(); // obtém somente os valores da propriedade time_occuped e aplanha o array resultante
 
-        barber.services = findDate
-
-        return barber
+        return times
     }
 }
 

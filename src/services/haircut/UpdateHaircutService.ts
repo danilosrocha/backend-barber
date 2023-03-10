@@ -6,10 +6,11 @@ interface HaircutRequest {
     name: string,
     price: number,
     status: boolean | string
+    time: string
 }
 
 class UpdateHaircutService {
-    async execute({ haircut_id, name, price, user_id, status = true }: HaircutRequest) {
+    async execute({ haircut_id, name, price, user_id, status = true, time }: HaircutRequest) {
 
         const user = await prismaClient.user.findFirst({
             where: {
@@ -31,7 +32,8 @@ class UpdateHaircutService {
             data: {
                 name: name,
                 price: price,
-                status: status === 'true' ? true : false
+                status: status === 'true' ? true : false,
+                time,
             }
         })
 

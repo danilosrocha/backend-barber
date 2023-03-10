@@ -6,11 +6,11 @@ class UpdateHaircutController {
 
         const user_id = req.user_id
 
-        const { haircut_id, name, price, status } = req.body
+        const { haircut_id, name, price, status, time } = req.body
 
         const updateHaircutService = new UpdateHaircutService()
 
-        const haircut = await updateHaircutService.execute({ haircut_id, name, price, status, user_id })
+        const haircut = await updateHaircutService.execute({ haircut_id, name, price, status, user_id, time })
 
         return res.json(haircut)
     }

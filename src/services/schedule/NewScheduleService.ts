@@ -8,10 +8,11 @@ interface NewScheduleRequest {
     barber_id: string
     time: string
     date: string
+    time_occuped: string[]
 }
 
 class NewScheduleService {
-    async execute({ customer, haircut_id, user_id, barber_id, time, date }: NewScheduleRequest) {
+    async execute({ customer, haircut_id, user_id, barber_id, time, date, time_occuped }: NewScheduleRequest) {
         if (!customer || !haircut_id || !user_id || !barber_id || !time || !date) {
             throw new Error("Error schedule new service")
         }
@@ -64,6 +65,7 @@ class NewScheduleService {
                     barber_id,
                     date: newDate,
                     time,
+                    time_occuped,
                 }
             })
 

@@ -28,6 +28,7 @@ model User {
   services          Service[]
   // 
   barbers           Barber[]
+  Client            Client[]
 
   @@map("users")
 }
@@ -51,6 +52,7 @@ model Haircut {
   name       String
   price      Float
   status     Boolean   @default(true)
+  time       String    @default("30:00")
   // 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
@@ -64,23 +66,24 @@ model Haircut {
 }
 
 model Service {
-  id         String    @id @default(uuid())
-  customer   String
-  status     Boolean   @default(true)
-  time       String
-  date       String
+  id           String    @id @default(uuid())
+  customer     String
+  status       Boolean   @default(true)
+  time         String
+  time_occuped String[]
+  date         String
   // 
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
+  created_at   DateTime? @default(now())
+  updated_at   DateTime? @default(now())
   // 
-  haircut    Haircut   @relation(fields: [haircut_id], references: [id])
-  haircut_id String
+  haircut      Haircut   @relation(fields: [haircut_id], references: [id])
+  haircut_id   String
   // 
-  user       User      @relation(fields: [user_id], references: [id])
-  user_id    String
+  user         User      @relation(fields: [user_id], references: [id])
+  user_id      String
   // 
-  barber     Barber?   @relation(fields: [barber_id], references: [id])
-  barber_id  String?
+  barber       Barber?   @relation(fields: [barber_id], references: [id])
+  barber_id    String?
 
   @@map("services")
 }
@@ -101,4 +104,20 @@ model Barber {
   services     Service[]
 
   @@map("barbers")
+}
+
+model Client {
+  id           String    @id @default(uuid())
+  name         String
+  document     String    @unique
+  phone_number String
+  loyalty      Int       @default(0)
+  // 
+  created_at   DateTime? @default(now())
+  updated_at   DateTime? @default(now())
+  // 
+  users        User      @relation(fields: [user_id], references: [id])
+  user_id      String
+
+  @@map("clients")
 }
