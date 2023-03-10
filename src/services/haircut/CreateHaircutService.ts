@@ -4,10 +4,11 @@ interface HaircutRequest {
     user_id: string
     name: string
     price: number
+    time: string
 }
 
 class CreateHaircutService {
-    async execute({ name, price, user_id }: HaircutRequest) {
+    async execute({ name, price, user_id, time }: HaircutRequest) {
 
         if (!name || !price) {
             throw new Error("Erro!")
@@ -50,7 +51,8 @@ class CreateHaircutService {
                 data: {
                     name: name,
                     price: Number(price),
-                    user_id: user_id
+                    user_id: user_id,
+                    time,
                 }
             })
 
