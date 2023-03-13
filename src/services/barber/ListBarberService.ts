@@ -8,10 +8,16 @@ interface ListBarberRequest {
 class ListBarberService {
     async execute({ user_id, status }: ListBarberRequest) {
 
+        if (!user_id) {
+            return []
+        }
+
         const barber = await prismaClient.barber.findMany({
             where: {
-                user_id,
-                status: status === 'true' ? true : false
+                AND: {
+                    user_id: user_id,
+                    status: status === 'true' ? true : false
+                }
             },
             select: {
                 id: true,

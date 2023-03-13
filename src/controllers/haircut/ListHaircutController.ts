@@ -4,7 +4,7 @@ import { ListHaircutService } from "../../services/haircut/ListHaircutService"
 class ListHaircutController {
     async handle(req: Request, res: Response) {
 
-        const user_id = req.user_id
+        const user_id = req.user_id ? req.user_id : req.query ? req.query.user_id as string : null;
 
         const status = req.query.status as string
 

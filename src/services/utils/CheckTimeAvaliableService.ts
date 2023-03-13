@@ -35,20 +35,20 @@ class CheckTimeAvaliableService {
             }
         })
 
-        let occupiedTimes = barber?.services.reduce((occupied: any, current: any) => {
-            current.time_occuped.forEach((time: string) => {
-                const index = occupied.findIndex((item: any) => item.date === current.date)
-                if (index === -1) {
-                    occupied.push({
-                        date: current.date,
-                        times: [time]
-                    })
-                } else {
-                    occupied[index].times.push(time)
-                }
-            })
-            return occupied
-        }, [])
+        // let occupiedTimes = barber?.services.reduce((occupied: any, current: any) => {
+        //     current.time_occuped.forEach((time: string) => {
+        //         const index = occupied.findIndex((item: any) => item.date === current.date)
+        //         if (index === -1) {
+        //             occupied.push({
+        //                 date: current.date,
+        //                 times: [time]
+        //             })
+        //         } else {
+        //             occupied[index].times.push(time)
+        //         }
+        //     })
+        //     return occupied
+        // }, [])
 
         const services = barber?.services.filter((service: any) => service.date === date); // filtra os serviços com a data desejada
         const times = services?.map((service: any) => service.time_occuped).flat(); // obtém somente os valores da propriedade time_occuped e aplanha o array resultante
