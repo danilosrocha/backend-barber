@@ -33,7 +33,8 @@ class ListBarberService {
                         id: true,
                         name: true,
                         price: true,
-                        time: true
+                        time: true,
+                        status: true
                     }
                 }
             }
