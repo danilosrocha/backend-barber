@@ -24,9 +24,12 @@ class ListBarberHaircutService {
             select: {
                 barber_name: true,
                 id: true,
-                haircuts: true
-            },
-            distinct: "id"
+                haircuts: {
+                    orderBy: {
+                        name: 'asc'
+                    }
+                },
+            }
         })
 
         return haircuts
