@@ -26,6 +26,9 @@ class ListBarberService {
                 status: true,
                 available_at: true,
                 haircuts: {
+                    orderBy: {
+                        name: 'asc'
+                    },
                     select: {
                         id: true,
                         name: true,
@@ -35,6 +38,7 @@ class ListBarberService {
                 }
             }
         })
+
 
         return barber
     }
