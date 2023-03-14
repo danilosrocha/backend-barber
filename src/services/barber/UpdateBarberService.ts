@@ -4,10 +4,12 @@ interface BarberRequest {
     user_id: string,
     barber_name?: string,
     barber_id: string
+    available_at?: string[]
 }
 
+
 class UpdateBarberService {
-    async execute({ user_id, barber_name, barber_id }: BarberRequest) {
+    async execute({ user_id, barber_name, barber_id, available_at }: BarberRequest) {
 
         if (!barber_name) {
             throw new Error("Erro update barber!")
@@ -33,6 +35,7 @@ class UpdateBarberService {
                 },
                 data: {
                     barber_name,
+                    available_at
                 }
             })
 
