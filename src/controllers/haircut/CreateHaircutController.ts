@@ -6,11 +6,11 @@ class CreateHaircutController {
 
         const user_id = req.user_id
 
-        const { name, price, time } = req.body
+        const { name, price, time, barber_id } = req.body
 
         const createHaircutService = new CreateHaircutService()
 
-        const haircut = await createHaircutService.execute({ name, price, time, user_id })
+        const haircut = await createHaircutService.execute({ name, price, time, user_id, barber_id })
 
         return res.json(haircut)
     }

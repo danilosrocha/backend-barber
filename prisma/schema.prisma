@@ -60,6 +60,9 @@ model Haircut {
   user       User      @relation(fields: [user_id], references: [id])
   user_id    String
   // 
+  barber     Barber    @relation(fields: [barber_id], references: [id])
+  barber_id  String
+  // 
   services   Service[]
 
   @@map("haircuts")
@@ -102,6 +105,7 @@ model Barber {
   user_id      String?
   // 
   services     Service[]
+  haircuts     Haircut[]
 
   @@map("barbers")
 }

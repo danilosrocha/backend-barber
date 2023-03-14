@@ -24,7 +24,15 @@ class ListBarberService {
                 barber_name: true,
                 hair_cuts: true,
                 status: true,
-                available_at: true
+                available_at: true,
+                haircuts: {
+                    select: {
+                        id: true,
+                        name: true,
+                        price: true,
+                        time: true
+                    }
+                }
             }
         })
 

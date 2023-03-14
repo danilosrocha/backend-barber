@@ -12,6 +12,7 @@ import { CreateHaircutController } from "./controllers/haircut/CreateHaircutCont
 import { ListHaircutController } from "./controllers/haircut/ListHaircutController";
 import { UpdateHaircutController } from "./controllers/haircut/UpdateHaircutController";
 import { DetailHaircutController } from "./controllers/haircut/DetailHaircutController";
+import { ListBarberHaircutController } from "./controllers/haircut/ListBarberHaircutController";
 // Utils
 import { CheckSubscriptionController } from "./controllers/utils/CheckSubscriptionController";
 import { CountHaircutsController } from "./controllers/utils/CountHaircutsController";
@@ -66,6 +67,8 @@ router.put('/haircut', isAuthenticated, new UpdateHaircutController().handle)
 
 router.get('/haircut/detail', isAuthenticated, new DetailHaircutController().handle)
 
+router.get('/haircuts/barber', isAuthenticated, new ListBarberHaircutController().handle)
+
 // Routes - Utils
 router.get('/check', isAuthenticated, new CheckSubscriptionController().handle)
 
@@ -109,5 +112,7 @@ router.get('/barber/times/fast', new CheckTimeAvaliableController().handle)
 router.get('/schedule/days/fast', new SchedulesDaysController().handle)
 
 router.post('/schedule/fast', new NewScheduleController().handle)
+
+router.get('/haircuts/barber/fast', isAuthenticated, new ListBarberHaircutController().handle)
 
 export { router }
