@@ -4,8 +4,9 @@ import { DeleteBarberService } from "../../services/barber/DeleteBarberService";
 class DeleteBarberController {
     async handle(req: Request, res: Response) {
         const { barber_id } = req.body
-        
+
         const user_id = req.user_id
+        console.log(user_id);
 
         const deleteBarberService = new DeleteBarberService()
 
